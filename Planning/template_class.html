@@ -23,7 +23,7 @@
 	<body>
 		<div class="container">
 			<div class="header">
-				<h1 class="header-heading">Sitename</h1>
+				<h1 class="header-heading">Planning</h1>
 			</div>
 			<div class="nav-bar">
 				<ul class="nav">
@@ -66,8 +66,10 @@
 					plan to create another function that allows the user to edit the order. I probably won't implement
 					this in the next sprint, but will instead wait until the receipt and delivery/pickup functions
 					have been added - as it is more of an embellishment than an essential function of the program. <br>
-					In the next version, I want to add a function where where the operator asks for the customer's
-					.<br>
+					<br>
+					In the next version, I want to add a function where where the operator asks whether the customer
+					wants their food delivered to their home address or not, then asks for and processes the relevant
+					personal information (e.g. name, address, phone number, delivery charge).<br><br>
 					There are a few problems with this version - the formatting on the printed lists is not as clean
 					as it could be, and of course it still can't cope with any kind of unexpected input. I plan to
 					address all of these minor issues when I have finished writing the main code.
@@ -76,11 +78,75 @@
 				<h1>Sprint Three</h1>
 				<img src="assets/img/s3_board.png" width="75%">
 				<img src="assets/img/s3_plan.jpg" width="75%">
-				<img src="assets/img/s3_test.png" width="75%">
+				<img src="assets/img/s3_test1.png" width="75%">
+				<img src="assets/img/s3_test2.png" width="75%">
 				<h3>Reflection</h3>
-				<p></p>
+				<p> The program now allows the user to tell it whether they would like their order to be
+					delivered, or if the customer will pick it up from the pizza store themselves. The program then
+					takes the customer's personal information based on this, and adds a $3 delivery charge where
+					appropriate.<br><br>
+				In the next sprint I want to restructure the code - I would like the program to be based around a
+				"menu" of options from which the user can decide what to do with their order. This will be done in the
+					next sprint. I believe
+				this will allow for greater flexibility within the program, so the user has more control. It will also
+				make it easier to edit user orders, a functionality which will be implemented in my next sprint.
+				</p>
 				<hr>
-<h1> Relevant Implications Summary</h1>
+				<h1>Sprint Four</h1>
+				<img src="assets/img/s4_board.png" width="75%">
+				<img src="assets/img/s4_plan.jpg" width="75%">
+				<img src="assets/img/s4_test1.png" width="75%">
+				<img src="assets/img/s4_test2.png" width="75%">
+				<img src="assets/img/s4_test3.png" width="75%">
+				<h3>Reflection</h3>
+				<p>In this sprint, I completely restructured my code so that it was centred around a central menu,
+					from which the user can make requests. I also added in several new functions, including two
+					functions for validating user input to prevent crashes, and greatly altered the function for
+					getting the customer information, so that it detects when the user already has information stored
+					and allows them to edit it more efficiently. I have split the get_customer_info function into
+					four separate functions (get_delivery_info, get_pickup_info, and get_address) to make this part of
+					the process as efficient as possible.<br><br>
+					However, the original goal of this sprint has not been completed. I came across problems with the
+					print_menu functionality early on, which was a major component of my plans for the edit_order
+					function. I then realised that I was too ambitious with early planning for this sprint and decided
+					to change my focus to troubleshooting, fixing bugs, implementing simple validation functions, and
+					updating the edit_customer_info function so that it had a more flexible design, elements of which
+					I plan to reuse in the edit_order function. <br><br>
+					In this program the user is still unable to delete things from the order or view their receipt.
+					The delay in implementing these functions is due to the problems with the print_menu functions,
+					which are currently not working. In the next sprint, I will fix this, which should allow me to
+					implement the previously-planned edit_order function I had intended to add in this sprint.
+					Once sprint five has been completed, I will be able to start fixing any final bugs and getting the
+					program ready for completion.
+				</p>
+				<h1> Relevant Implications Summary</h1>
+				<h2>
+					Future proofing
+				</h2>
+				<p>
+					"Future proofing" means that this program will continue to be flexible and easy to work with well
+					into the future. It means the code is easy to update, and easy to understand for any new developer
+					who may potentially come to work on it.
+				</p>
+				<h2>
+					Functionality
+				</h2>
+				<p>
+					"Functionality" means that the program functions as it should.
+				</p>
+				<h2>
+					Usability
+				</h2>
+				<p>"Usability" means that a program is easy to use to somebody unfamiliar with its workings. That means
+				it is easy to navigate, interact with, and understand. I believe my program complies with this
+				heuristic due to the extensive validation as well as the way it is laid out. The program is predictable,
+				running from a central menu that the user returns to after each completed task. The user is provided
+				with clear instructions and every step. If they do something wrong, a feedback message is printed that
+				clearly explains what they have done wrong and what they must do to fix it. They are also given a chance
+				to fix their own mistakes, and are usually asked to "please try again" after they have entered something
+				the system cannot process. The program also takes advantage of the Python functions .lower(), .upper(),
+					and .title() to make sure the user doesn't have to worry about simple things like capitalising
+				their input. </p>
 				<hr>
 				<h1>Github instructions</h1>
 				<p>
@@ -90,110 +156,6 @@
 					- git push -u origin
 				</p>
 				<hr>
-
-
-    <!-- Paragraphs -->
-    <h3>Example of formatted code</h3>
-	
-                
-
-
-<pre style="font-size: 1.5em;">
-<code class="Python">
-# interesting comment
-def review_fruit(l):
-    for x in l:
-        output = "{:&le; 10} -- {: &gt;4}".format(x[0], x[1])
-        print(output)
-    return None
-</code>
-</pre>
-
-  <h3>Table in case you need</h3>              
-<table class="my-table"><tr><th>Tracks</th><th>Album</th><th>Artist</th></tr><tr><td>Rosalyn</td><td>Night moves</td><td>Bob Seger</td></tr><tr><td>Rock n' Roll Music</td><td>Rock n' Roll Music</td><td>The Beatles</td></tr><tr><td>Roll Over Beethoven</td><td>Rock n' Roll Music</td><td>The Beatles</td></tr><tr><td>Right Down The Lane</td><td>City to City</td><td>Gerry Rafferty</td></tr><tr><td>Ramblin Man</td><td>Brothers and Sister</td><td>The Allman Brothers Band</td></tr><tr><td>Rocket Man (I think it's going to be a long, long time)</td><td>Honky Chateau</td><td>Elton John</td></tr></table>
-                
-            <hr>     
-                
-                <h3>Example paragraph</h3>
-					<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-					<hr>
-
-					<!-- Responsive images -->
-					<h3>Example image placements</h3>
-					<p>For images to be responsive (so that they will rescale to suit the width of the parent, use the <code>.img-responsive</code> class.</p>
-					<img class="img-responsive" src="assets/img/place_holder.png" alt="">
-                <hr>
-                <div class="col-container">
-                <div class="col">
-               <img class="img-responsive" src="assets/img/place_holder_sm.jpg" alt="">
-                <p>Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation ullamcorper</a> suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel.</p>
-                </div>
-                 <div class="col">
-                <img class="img-responsive" src="assets/img/place_holder_sm.jpg" alt="">
-                <p>Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation ullamcorper</a> suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel.</p>
-                </div>
-                </div>
-                <hr>
-               
-              
-
-					<!-- Lists -->
-					<h3>Unordered list</h3>
-					<p>Unordered lists are used to markup lists where list items do not require numbering.</p>
-					<ul>
-						<li>Ut wisi enim ad minim veniam</li>
-						<li>Quis nostrud exerci tation</li>
-						<li>Lamcorper suscipit lobortis nis</li>
-						<li>Ut aliquip ex ea commodo consequat</li>
-						<li>Duis autem vel eum iriure dolor</li>
-					</ul>
-					<hr>
-
-					<h3>Ordered list</h3>
-					<p>Ordered lists are used to markup lists where list items require numbering.</p>
-					<ol>
-						<li>Hendrerit in vulputate velit esse</li>
-						<li>Olestie consequat</li>
-						<li>Vel illum dolore eu feugiat</li>
-						<li>Nulla facilisis at vero eros</li>
-						<li>Accumsan et iusto odio</li>
-					</ol>
-					<hr>
-
-					<h3>Unstyled list</h3>
-					<p>You can make the list unstyled using the <code>list-unstyled</code> class.</p>
-					<ul class="list-unstyled">
-						<li>Ut wisi enim ad minim veniam</li>
-						<li>Quis nostrud exerci tation</li>
-						<li>Lamcorper suscipit lobortis nis</li>
-						<li>Ut aliquip ex ea commodo consequat</li>
-						<li>Duis autem vel eum iriure dolor</li>
-					</ul>
-					<hr>
-
-					<h3>Inline list</h3>
-					<p>You can make the list display inline using the <code>list-inline</code> class.</p>
-					<ul class="list-inline">
-						<li>One</li>
-						<li>Two</li>
-						<li>Three</li>
-						<li>Four</li>
-					</ul>
-					<hr>
-
-				
-
-					<h3>Buttons</h3>
-					<p>You can apply the <code>btn</code> class to any element that requires a button style.</p>
-					<p><a href="#" class="btn">Submit</a></p>
-					<hr>
-
-
-
-               
-            
-
-			
 			</div>
 			<div class="footer">
 				&copy; Copyright 2015
