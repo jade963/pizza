@@ -27,25 +27,33 @@
 			</div>
 			<div class="nav-bar">
 				<ul class="nav">
-					<li><a href="#">Nav item 1</a></li>
-					<li><a href="#">Nav item 2</a></li>
-					<li><a href="#">Nav item 3</a></li>
+					<li><a href="#brief">Brief</a></li>
+					<li><a href="#1">Sprint One</a></li>
+					<li><a href="#2">Sprint Two</a></li>
+					<li><a href="#3">Sprint Three</a></li>
+					<li><a href="#4">Sprint Four</a></li>
+					<li><a href="#5">Sprint Five</a></li>
+					<li><a href="#relimp">Relevant Implications</a></li>
+
 				</ul>
 			</div>
 			<div class="content">
 
-				<h1>Brief</h1>
+				<h1 id="brief">Brief</h1>
 				<p>This is a program where a worker at a pizza company may enter orders received over the phone
 				into a computer system. This system will store a customer's name, address, and order information,
 				and use this to calculate a price total and print a receipt.</p>
-				<p>Below is the project backlog: </p>
+				<p>Below is the initial project backlog: </p>
 				<img src="assets/img/Project_backlog.png" width="75%">
 				<hr>
 
-				<h1>Sprint One</h1>
-				<img src="assets/img/s1_board.png" width="75%">
-				<img src="assets/img/s1_plan.jpg" width="75%">
-				<img src="assets/img/s1_test.png" width="75%">
+				<h1 id="1">Sprint One</h1>
+				<h3>Aim</h3>
+				<p>This is the first sprint of the program - this aims to add a simple pizza menu, and have the start
+				of a main function that welcomes the user and prints that menu.</p>
+				<img src="assets/img/s1_board.png" width="50%">
+				<img src="assets/img/s1_plan.jpg" width="50%">
+				<img src="assets/img/s1_test.png" width="50%">
 				<h3>Reflection</h3>
 				<p>This version has a simple menu that I can work with during the early stages of this project, as
 					well as the beginning to the main loop that will allow the program to run; these elements all work
@@ -53,10 +61,14 @@
 					allow the program operator to enter their choice of the pizza, which must be stored by the program.
 				</p>
 				<hr>
-				<h1>Sprint Two</h1>
-				<img src="assets/img/s2_board.png" width="75%">
-				<img src="assets/img/s2_plan.jpg" width="75%">
-				<img src="assets/img/s2_test.png" width="75%">
+				<h1 id="2">Sprint Two</h1>
+				<h3>Aim</h3>
+				<p>In this sprint I am implementing the start of the "order" function. The menu will be printed, and
+				the user is asked to enter the pizza they would like, along with a quantity and order comments. An
+				order_list will also be created, which the information the user enters will be added to.</p>
+				<img src="assets/img/s2_board.png" width="50%">
+				<img src="assets/img/s2_plan.jpg" width="50%">
+				<img src="assets/img/s2_test.png" width="50%">
 				<h3>Reflection</h3>
 				<p>The program now takes a user's order and stores it in the system, and is able to recall it later
 					when asking for the user's confirmation. As I was writing the code in this sprint, it occurred to me
@@ -75,11 +87,15 @@
 					address all of these minor issues when I have finished writing the main code.
 				</p>
 				<hr>
-				<h1>Sprint Three</h1>
-				<img src="assets/img/s3_board.png" width="75%">
-				<img src="assets/img/s3_plan.jpg" width="75%">
-				<img src="assets/img/s3_test1.png" width="75%">
-				<img src="assets/img/s3_test2.png" width="75%">
+				<h1 id="3">Sprint Three</h1>
+				<h3>Aim</h3>
+				<p>This sprint aims to add a "get_customer_info" function that will find out if the order is for
+				pickup or delivery, and ask for customer information based on that (name, address, etc.) and adds a
+				delivery charge if appropriate.</p>
+				<img src="assets/img/s3_board.png" width="50%">
+				<img src="assets/img/s3_plan.jpg" width="50%">
+				<img src="assets/img/s3_test1.png" width="50%">
+				<img src="assets/img/s3_test2.png" width="50%">
 				<h3>Reflection</h3>
 				<p> The program now allows the user to tell it whether they would like their order to be
 					delivered, or if the customer will pick it up from the pizza store themselves. The program then
@@ -92,15 +108,22 @@
 				make it easier to edit user orders, a functionality which will be implemented in my next sprint.
 				</p>
 				<hr>
-				<h1>Sprint Four</h1>
-				<img src="assets/img/s4_board.png" width="75%">
-				<img src="assets/img/s4_plan.jpg" width="75%">
-				<img src="assets/img/s4_test1.png" width="75%">
-				<img src="assets/img/s4_test2.png" width="75%">
-				<img src="assets/img/s4_test3.png" width="75%">
+				<h1 id="4">Sprint Four</h1>
+				<h3>Aim</h3>
+				<p>This sprint aims to restructure the program by making all of the code run from a central options
+				menu which the user interacts with. It will also add basic input validation to help accommodate
+				user mistakes and prevent the program from crashing so easily. Finally, it will allow the user to
+				view their receipt and edit what they have ordered.</p>
+				<img src="assets/img/s4_board.png" width="50%">
+				<img src="assets/img/s4_plan.jpg" width="50%">
+				<img src="assets/img/s4_plan2.jpg" width="50%">
+				<img src="assets/img/s4_test1.png" width="50%">
+				<img src="assets/img/s4_test2.png" width="50%">
+				<img src="assets/img/s4_test3.png" width="50%">
 				<h3>Reflection</h3>
 				<p>In this sprint, I completely restructured my code so that it was centred around a central menu,
-					from which the user can make requests. I also added in several new functions, including two
+					from which the user can make requests. This means that the program is more predictable and easier
+					for a first-time user to navigate. I also added in several new functions, including two
 					functions for validating user input to prevent crashes, and greatly altered the function for
 					getting the customer information, so that it detects when the user already has information stored
 					and allows them to edit it more efficiently. I have split the get_customer_info function into
@@ -119,7 +142,57 @@
 					Once sprint five has been completed, I will be able to start fixing any final bugs and getting the
 					program ready for completion.
 				</p>
-				<h1> Relevant Implications Summary</h1>
+				<hr>
+				<h1 id="5">Sprint Five</h1>
+				<h3>Aim</h3>
+				<p>In this sprint, I want to have a working print_receipt function. This means that I will need to fix
+				the broken print_menu and print_menu_indices functions, which are currently returning errors when
+				called in several situations and early tests of the print_receipt function. Once this is done I will
+				use this code to implement a very simple confirm_order function. </p>
+				<img src="assets/img/s5_board.png" width="50%">
+				<img src="assets/img/s5_plan1.jpg" width="50%">
+				<img src="assets/img/s5_plan2.jpg" width="50%">
+				<img src="assets/img/s5_fail1.png" width="50%">
+				<img src="assets/img/s5_fail2.png" width="50%">
+				<h3>Errors</h3>
+				<p>In this sprint, my main goal was to implement print_receipt and confirm_order functions. However,
+				these goals could not be accomplished without getting the print_menu and print_menu_indices options
+				to work correctly. I ended up focusing on the print_menu function, which I could not make work with the
+				list I was using to store customer information, resulting in the first screenshot. I eventually made the
+				decision to switch this delivery_info list to a dictionary, which I realised after crashing the program
+				several times (second screenshot) required a whole new approach, so I added a print_dict function
+				specifically to print it in that format.</p>
+				<img src="assets/img/s5_test1.png" width="50%">
+				<img src="assets/img/s5_test2.png" width="50%">
+				<h3>Reflection</h3>
+				<p>This sprint was successful as far as fulfilling my goals was concerned. I now have working functions
+				for printing both dictionaries and multi-dimensional lists, and working print_receipt and
+				confirm_order functions. The extensive testing process after this version also allowed me to identify
+					several bugs both minor and major, such as the way the user's address was being recorded - many of
+				the minor bugs have now been fixed. <br><br>
+				There are three remaining major flaws in the code. After the progress made in this sprint, it appears
+					that the total_cost variable does not update according to the information from the add_to_order
+				loop - something that had worked in previous versions (the error discovered in this version's testing is
+					pictured above. I am unclear how this happened; however, I will
+				not be fixing it in this sprint, as I plan on dealing with the cost calculation in a new way altogether
+				going forward, so it would be a wasted effort.<br><br>
+				On top of this, there is a possible exploit where a user could get $3 off their order total by entering
+					the "edit customer details" menu, and changing their order to "pickup" an unlimited amount of times.
+				While this could be prevented, it would require writing repetitive code, whereas I believe a better
+					solution would again be calculating costs through a separate "calculator" function, so that the
+					total is not constantly passed through arguments and altered by 3-4 different functions. This will
+					make it much easier to edit code pertaining to it in the future. <br><br>
+					The final glitch is shown in the second test image - if a user orders the same kind of pizza
+					twice, it will not print as, for example, "2 cheese pizzas" but as two sets of "1 cheese pizza".
+					This will create an inconvenience for the user when I implement the planned "edit_order" function -
+					therefore, this will have to be fixed in the next sprint, before the edit_order function is added.
+				</p>
+				<hr>
+				<h1>Sprint Six</h1>
+				<h3>Aim</h3>
+				<p>In this sprint, I am aiming to implement a cost calculation function, and make sure that </p>
+				<hr>
+				<h1 id="relimp"> Relevant Implications Summary</h1>
 				<h2>
 					Future proofing
 				</h2>
