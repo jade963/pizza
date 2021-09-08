@@ -66,8 +66,43 @@ def print_dict(m):
         print(x, ' : ', m[x])
 
 
+# function for detecting when a pizza type has been ordered that's already contained on the "order" list - will add
+# quantities together
+# f = "order", z = "pizza_menu", p = "pizza", q = "quantity"
+def quantity_adder(f, z, p, q):
+    # defines the name of the pizza the user just ordered as pizza_name
+    pizza_name = z[p][0]
+    for x in range(0, len(f)):
+        # checks if any of the pizzas already in the order list match pizza_name
+        if pizza_name in f[0]:
+            # if they do match, adds the specified amount to the existing quantity
+            f[x][1] += q
+        # if there is no match, adds the new pizza type as normal
+        else:
+            addition = [z[p][0], q]
+            f.append(addition)
+
+
+# function for calculating total costs; "g" is delivery_info while "c" is costs
+def calculator(g, c):
+    # calculates the sum of the "costs" list (the list containing all the pizza prices)
+    total = sum(c)
+    # checks if a collection type has already been specified
+    try:
+        # checks if the collection type is set as delivery, adds delivery charge if appropriate
+        if g['Kind'] == "Delivery":
+            total += 3
+            return total
+        # if the delivery is set for pickup, returns total as is
+        else:
+            return total
+    # if a delivery type hasn't already been specified, returns total as is
+    except KeyError:
+        return total
+
+
 # function for allowing the operator to enter their order into the system
-def add_to_order(f, z, t):
+def add_to_order(f, z, g, c):
     run = True
     while run is True:
         # prints the pizza menu with indices
@@ -75,19 +110,24 @@ def add_to_order(f, z, t):
         # asks the user for input regarding the details of their order
         pizza = get_integer("Please enter the index number of the pizza you'd like to order: ", 0, 2)
         quantity = get_integer("Please enter the number of these pizzas that you would like: ", 1, 10)
-        comments = get_controlled_string(
-            "Please enter any additional instructions you would like to go with your order: ", 0, 200)
-        # defines the "addition" (that is, the details of the order) and appends it to the main order_list
-        addition = [z[pizza][0], quantity, comments]
-        f.append(addition)
-        # calculates the cost of what the user has just ordered
-        t += z[pizza][1] * quantity
+        # calculates the cost of what the user has just ordered and adds it to "cost list"
+        cost = z[pizza][1] * quantity
+        c.append(cost)
+        # checks if there is no information already in the order list
+        if len(f) == 0:
+            # defines the "addition" (that is, the details of the order) and appends it to the main order_list
+            addition = [z[pizza][0], quantity]
+            f.append(addition)
+        # if there is already information in the order list, program proceeds to another function
+        elif len(f) > 0:
+            quantity_adder(f, z, pizza, quantity)
         # checks how many pizzas the user has ordered so the "success" statement is grammatically correct
         if quantity == 1:
             print("You have successfully added 1 {} pizza to your order.".format(z[pizza][0].lower()))
         elif quantity > 1:
             print("You have successfully added {} {} pizzas to your order.".format(quantity, z[pizza][0].lower()))
-        print("Your total cost is now ${}.".format(t))
+        total = calculator(g, c)
+        print("Your total cost is now ${}.".format(total))
         # asks the user for input regarding what they want to do next - determines whether they continue with this
         # or return to the main function
         add = get_string("Would you like to order anything else? Press 'y' if yes, or any other key to continue. ")
@@ -220,7 +260,7 @@ def get_address(d):
 
 
 # function that allows the user to clear large chunks of their information from the system at once
-def clear(a, b, c):
+def clear(a, b):
     run = True
     while run is True:
         delete_options = '''
@@ -238,7 +278,7 @@ def clear(a, b, c):
             choice = get_string("What would you like to do? ").upper()
             # clears all information from all lists
             if choice == "A":
-                a, b, c.pop()
+                a, b.pop()
                 print("All of your information has been cleared. Feel free to start again.")
             # clears all stored order information
             elif choice == "B":
@@ -270,7 +310,7 @@ def clear(a, b, c):
 
 
 # function for printing the user receipts
-def print_receipt(a, b, t):
+def print_receipt(a, b, c):
     # if no food has actually been ordered yet
     if len(a) == 0:
         print("You haven't ordered anything yet!")
@@ -278,7 +318,6 @@ def print_receipt(a, b, t):
     elif len(a) > 0:
         print("Your order:")
         print_menu(a)
-        print("Total cost: ${}".format(t))
     # if there are no collection details/customer information yet
     if len(b) == 0:
         print("You haven't entered any collection details yet!")
@@ -286,10 +325,12 @@ def print_receipt(a, b, t):
     elif len(b) > 0:
         print("Your collection details:")
         print_dict(b)
+        total = calculator(b, c)
+        print("Total cost: ${}".format(total))
 
 
 # function for confirming the order and finishing with the program
-def confirm_order(a, b, t):
+def confirm_order(a, b, c):
     run = True
     while run is True:
         # the order cannot be confirmed if it is missing information, so the program will feed back to the user then
@@ -302,7 +343,7 @@ def confirm_order(a, b, t):
             return
         else:
             # prints all order information for the user to view
-            print_receipt(a, b, t)
+            print_receipt(a, b, c)
             # gets the user to confirm if they would like to proceed
             goahead = get_string("Would you like to confirm your order and exit the program? Please enter 'y' for yes "
                                  "or 'n' for no: ")
@@ -317,13 +358,13 @@ def confirm_order(a, b, t):
             # in case of user input error, starts the function again
             else:
                 print("Sorry, but you have to enter either 'y' or 'n' here! Please try again: ")
-                return confirm_order(a, b, t)
+                return confirm_order(a, b, c)
 
 
 # main function where the code runs from
 def main():
-    # total cost
-    total_cost = 0
+    costs = [
+    ]
     # menu for customers to order from
     pizza_list = [
         ["Cheese", 15],
@@ -354,31 +395,24 @@ def main():
         # asks the user what they would like to do, calls a function based on their choice
         end = get_controlled_string("Please select an option from the list to proceed: ", 1, 1).upper()
         if end == "A":
-            add_to_order(order, pizza_list, total_cost)
+            add_to_order(order, pizza_list, delivery_info, costs)
         elif end == "B":
             edit_order()
             continue
         elif end == "C":
             get_customer_info(delivery_info)
-            # calculates delivery fees at the end of each update
-            if delivery_info["Kind"] == "Delivery":
-                total_cost += 3
-                print("A $3 delivery charge has been added to your total. Your total currently stands at ${}".format
-                      (total_cost))
-            elif delivery_info["Kind"] == "Pickup":
-                print("There is no charge for pickup. Your total currently stands at ${}".format(total_cost))
             continue
         elif end == "D":
-            print_receipt(order, delivery_info, total_cost)
+            print_receipt(order, delivery_info, costs)
             continue
         elif end == "E":
-            clear(order, delivery_info, total_cost)
+            clear(order, delivery_info)
             continue
         elif end == "F":
             print_menu_indices(pizza_list)
             continue
         elif end == "G":
-            confirm_order(order, delivery_info, total_cost)
+            confirm_order(order, delivery_info, costs)
         elif end == "H":
             # asks the user for confirmation if they really want the program to end
             confirm = get_string("Are you sure you want to quit the program? "
