@@ -112,8 +112,8 @@ def add_to_order(f, z, g, c):
         # prints the pizza menu with indices
         print_menu_indices(z)
         # asks the user for input regarding the details of their order
-        pizza = get_integer("Please enter the index number of the pizza you'd like to order: ", 0, 2)
-        quantity = get_integer("Please enter the number of these pizzas that you would like: ", 1, 10)
+        pizza = get_integer("Please enter the index number of the pizza you'd like to order: ", 0, len(z))
+        quantity = get_integer("Please enter the number of these pizzas that you would like: ", 1, 20)
         # calculates the cost of what the user has just ordered and adds it to "cost list"
         cost = z[pizza][1] * quantity
         c.append(cost)
@@ -410,7 +410,14 @@ def main():
     pizza_list = [
         ["Cheese", regular],
         ["Pepperoni", regular],
+        ["Vegetarian", regular],
+        ["Garlic", regular],
+        ["Chicken", regular],
+        ["Marinara", regular],
+        ["Calzone", regular],
+        ["Meat-lovers", gourmet],
         ["Hawaiian", gourmet],
+        ["Bacon Cheeseburger", gourmet],
     ]
     # where details of the food the customer has ordered is stored
     order = [
