@@ -1,4 +1,4 @@
-# function for getting integer input from the user
+# function for getting integer input from the user // m = input, least/most = min/max character length
 def get_integer(m, least, most):
     run = True
     while run is True:
@@ -22,7 +22,7 @@ def get_integer(m, least, most):
             return user_input
 
 
-# function for getting string input from the user
+# function for getting string input from the user // m = input, least/most = min/max character length
 def get_controlled_string(m, least, most):
     run = True
     while run is True:
@@ -40,30 +40,31 @@ def get_controlled_string(m, least, most):
             return user_input
 
 
-# function for getting string input where character limits are not necessary
+# function for getting string input where character limits are not necessary // m = input
 def get_string(m):
-    user_input = input(m)
+    # .strip() means that extraneous spaces will not return an error message
+    user_input = input(m).strip()
     return user_input
 
 
-# function for printing a menu from a list with two elements
+# function for printing a menu from a list with two elements // g = relevant list
 def print_menu(g):
     for x in g:
-        output = '{} -- {}'.format(x[0], x[1])
+        output = '{:<5} -- {:<5}'.format(x[0], x[1])
         print(output)
 
 
-# function for printing a list with its indices
+# function for printing a list with its indices // m = input
 def print_menu_indices(m):
     for i in range(0, len(m)):
-        output = "{:<5}{:20}${:<10.2f}".format(i, m[i][0], m[i][1])
+        output = "{:<5}{:<20}{:<10}".format(i, m[i][0], m[i][1])
         print(output)
 
 
-# function for printing a dictionary
+# function for printing a dictionary // m = input
 def print_dict(m):
     for x in m:
-        print(x, ' : ', m[x])
+        print(x, ' -- ', m[x])
 
 
 # function for detecting when a pizza type has been ordered that's already contained on the "order" list - will add
@@ -79,7 +80,7 @@ def quantity_adder(f, z, p, q):
             f[x][1] += q
         # if there is no match, adds the new pizza type as normal
         else:
-            addition = [z[p][0], q]
+            addition = [z[p][0], q, z[p][1]]
             f.append(addition)
 
 
@@ -102,6 +103,9 @@ def calculator(g, c):
 
 
 # function for allowing the operator to enter their order into the system
+# f = order (list containing order information), z = pizza_list (menu containing names and prices of pizzas)
+# g = delivery_info (list containing delivery type + customer information)
+# c = costs (list containing total cost of order so far)
 def add_to_order(f, z, g, c):
     run = True
     while run is True:
@@ -116,7 +120,7 @@ def add_to_order(f, z, g, c):
         # checks if there is no information already in the order list
         if len(f) == 0:
             # defines the "addition" (that is, the details of the order) and appends it to the main order_list
-            addition = [z[pizza][0], quantity]
+            addition = [z[pizza][0], quantity, z[pizza][1]]
             f.append(addition)
         # if there is already information in the order list, program proceeds to another function
         elif len(f) > 0:
@@ -130,7 +134,8 @@ def add_to_order(f, z, g, c):
         print("Your total cost is now ${}.".format(total))
         # asks the user for input regarding what they want to do next - determines whether they continue with this
         # or return to the main function
-        add = get_string("Would you like to order anything else? Press 'y' if yes, or any other key to continue. ")
+        add = get_string("Would you like to order anything else? Enter 'y' if yes, or any other key to "
+                         "move on. ").lower()
         if add == "y":
             continue
         else:
@@ -138,8 +143,41 @@ def add_to_order(f, z, g, c):
 
 
 # function for allowing the user to remove items from their order
-def edit_order():
-    return None
+# "o" = order (list containing order information), "c" = costs (list containing the total price of everything the user
+# has ordered so far
+def edit_order(o, c):
+    # puts the function in a loop so it can be repeated if the user wants to delete multiple items consecutively
+    run = True
+    while run is True:
+        # doesn't allow the function to run if nothing has been ordered yet
+        if len(o) == 0:
+            print("There's nothing to delete! Try ordering something first.")
+            return
+        else:
+            # prints the order so far
+            print("Your order:")
+            print_menu_indices(o)
+            # asks the user for input regarding the changes they wish to make
+            change = get_integer("Please enter the index number of the item you would like to change: ", 0, len(o))
+            num = get_integer("How many would you like to remove from your order? ", 0, o[change][1])
+            # subtracts 'num' from the quantity inside the order list
+            o[change][1] -= num
+            # calculates the cost of the subtracted quantity
+            less_amount = num * o[change][2]
+            # calculates the customer's new total
+            new_c = sum(c) - less_amount
+            # clears existing "costs" information and replaces it with "new_c"
+            c.clear()
+            c.append(new_c)
+            if o[change][1] < 1:
+                o.pop(change)
+            print("Success! It's been removed.")
+            add = get_string("Would you like to remove anything else? Enter 'y' if yes, or any other key to "
+                             "move on. ").lower()
+            if add == "y":
+                continue
+            else:
+                return
 
 
 # function for allowing the user to update their pickup/delivery information
@@ -192,11 +230,10 @@ def get_customer_info(d):
             # input and replacing the existing values in the dictionary
             elif change == "B":
                 d['Name'] = get_controlled_string("Please enter the name you would prefer us to use.", 2, 35).title()
-                print("Your name is now registered as {}".format(d['Name']))
+                print("Success! Your name is now registered as {}.".format(d['Name']))
             elif change == "C" and d['Kind'] == 'Delivery':
-                del d['Address'][0]
                 d["Address"] = get_address(d)
-                print("Your address is now registered as {}".format(d['Address']))
+                print("Success! Your address is now registered as {}.".format(d['Address']))
             elif change == "C" and d['Kind'] == 'Pickup':
                 print("Your order is currently scheduled for pickup - we don't require your address at this stage.")
             elif change == "D" and d['Kind'] == 'Delivery':
@@ -229,6 +266,8 @@ def get_delivery_info(d):
     # sends the user to the get_address function as the process is more complicated
     d['Address'] = get_address(d)
     d['Phone'] = get_integer("Please enter a phone number for the order: ", 100, 9999999999)
+    print("Great! Your order will be delivered to {} at {}, with the phone number {}".format(d['Name'], d['Address'],
+                                                                                             d['Phone']))
     return
 
 
@@ -243,24 +282,23 @@ def get_address(d):
     # if the user does not enter an apartment number:
     if new_list['Apartment'] == "":
         # splices together all elements of the address into standard format under the address_list variable
-        address_list = "{}{} {} {}".format(new_list['Apartment'], new_list['Number'], new_list['Street'],
-                                           new_list['District'])
+        address_list = "{}{} {}, {}".format(new_list['Apartment'], new_list['Number'], new_list['Street'],
+                                            new_list['District'])
         # prints the address the system has recorded for the user's benefit (in case of mistakes)
-        print("Your address has been registered as {}".format(address_list))
+        print("Your address has been registered as {}.".format(address_list))
         # adds the address_list information to the main list
         d['Address'] = address_list
         return address_list
     # if the user does enter an apartment number
     else:
-        address_list = "{}{} {} {}".format(new_list['Number'], new_list['Apartment'], new_list['Street'],
-                                           new_list['District'])
-        print("Your address has been registered as {}".format(address_list))
+        address_list = "{}{} {}, {}".format(new_list['Number'], new_list['Apartment'], new_list['Street'],
+                                            new_list['District'])
         d['Address'] = address_list
         return address_list
 
 
 # function that allows the user to clear large chunks of their information from the system at once
-def clear(a, b):
+def empty(a, b):
     run = True
     while run is True:
         delete_options = '''
@@ -293,8 +331,7 @@ def clear(a, b):
             # using the program
             elif choice == "D":
                 print("Sorry, but you can't edit specific information here! You'll need to return to the main menu and "
-                      "choose"
-                      "option B or C.")
+                      "select option B or C.")
                 return
             # returns the user to the main program if they change their mind about clearing data
             elif choice == "E":
@@ -325,8 +362,8 @@ def print_receipt(a, b, c):
     elif len(b) > 0:
         print("Your collection details:")
         print_dict(b)
-        total = calculator(b, c)
-        print("Total cost: ${}".format(total))
+    total = calculator(b, c)
+    print("Total cost: ${}".format(total))
 
 
 # function for confirming the order and finishing with the program
@@ -346,7 +383,7 @@ def confirm_order(a, b, c):
             print_receipt(a, b, c)
             # gets the user to confirm if they would like to proceed
             goahead = get_string("Would you like to confirm your order and exit the program? Please enter 'y' for yes "
-                                 "or 'n' for no: ")
+                                 "or 'n' for no: ").lower()
             if goahead == "y":
                 print("Thank you so much for ordering from us! Your food will be with you shortly.")
                 # ends the program
@@ -363,13 +400,15 @@ def confirm_order(a, b, c):
 
 # main function where the code runs from
 def main():
+    regular = 15
+    gourmet = 20
     costs = [
     ]
     # menu for customers to order from
     pizza_list = [
-        ["Cheese", 15],
-        ["Pepperoni", 15],
-        ["Hawaiian", 20],
+        ["Cheese", regular],
+        ["Pepperoni", regular],
+        ["Hawaiian", gourmet],
     ]
     # where details of the food the customer has ordered is stored
     order = [
@@ -378,7 +417,7 @@ def main():
     delivery_info = {
     }
     options = '''
-        A: Add to your order
+        A: Order a pizza
         B: Delete something from your order
         C: Edit delivery information
         D: View your receipt so far
@@ -393,11 +432,11 @@ def main():
         # prints list of interactive options for the user
         print(options)
         # asks the user what they would like to do, calls a function based on their choice
-        end = get_controlled_string("Please select an option from the list to proceed: ", 1, 1).upper()
+        end = get_string("Please select an option from the list to proceed: ").upper()
         if end == "A":
             add_to_order(order, pizza_list, delivery_info, costs)
         elif end == "B":
-            edit_order()
+            edit_order(order, costs)
             continue
         elif end == "C":
             get_customer_info(delivery_info)
@@ -406,7 +445,7 @@ def main():
             print_receipt(order, delivery_info, costs)
             continue
         elif end == "E":
-            clear(order, delivery_info)
+            empty(order, delivery_info)
             continue
         elif end == "F":
             print_menu_indices(pizza_list)
@@ -416,7 +455,7 @@ def main():
         elif end == "H":
             # asks the user for confirmation if they really want the program to end
             confirm = get_string("Are you sure you want to quit the program? "
-                                 "Enter 'y' to confirm, or any other key to go back. ")
+                                 "Enter 'y' to confirm, or any other key to go back. ").lower()
             if confirm != "y":
                 # returns the user to the main loop if they fail to confirm
                 continue
